@@ -6,6 +6,8 @@
 
   <title>Aisar | Fighter Card</title>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
   <style>
     * {
       box-sizing: border-box;
@@ -161,6 +163,56 @@
       border: none;
     }
 
+    .results {
+      padding: 0 20px 20px;
+    }
+
+    .fight {
+      background: #222;
+      border-radius: 14px;
+      padding: 15px;
+      margin-bottom: 8px;
+    }
+
+    .fight-top {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 8px;
+    }
+
+    .fight strong {
+      font-size: 15px;
+    }
+
+    .result {
+      font-weight: bold;
+      text-transform: uppercase;
+      font-size: 12px;
+    }
+
+    .win {
+      color: #66ff99;
+    }
+
+    .loss {
+      color: #ff6666;
+    }
+
+    .draw {
+      color: #ffd966;
+    }
+
+    .pending {
+      color: #aaa;
+    }
+
+    .fight-info {
+      color: #888;
+      font-size: 11px;
+      line-height: 1.6;
+    }
+
     .footer {
       text-align: center;
       padding: 0 20px 25px;
@@ -168,106 +220,276 @@
       font-size: 10px;
       letter-spacing: 2px;
     }
+
+    .loading {
+      color: #777;
+      text-align: center;
+      padding: 15px;
+      font-size: 12px;
+    }
   </style>
 </head>
 
 <body>
 
-  <div class="card">
+<div class="card">
 
-    <div class="top">
+  <div class="top">
 
-      <div class="tag">
-        FIGHTER PROFILE
-      </div>
-
-      <div class="fighter-photo">
-        🥊
-      </div>
-
-      <h1>AISAR</h1>
-
-      <div class="name-sub">
-        MUAY THAI • ALAM MELAYU
-      </div>
-
+    <div class="tag">
+      FIGHTER PROFILE
     </div>
 
-
-    <div class="stats">
-
-      <div class="stat">
-        <strong>0-0-0</strong>
-        <span>RECORD</span>
-      </div>
-
-      <div class="stat">
-        <strong>MUAY THAI</strong>
-        <span>STYLE</span>
-      </div>
-
-      <div class="stat">
-        <strong>—</strong>
-        <span>WEIGHT</span>
-      </div>
-
+    <div class="fighter-photo">
+      🥊
     </div>
 
+    <h1 id="fighterName">AISAR</h1>
 
-    <div class="section">
-
-      <div class="section-title">
-        FIGHTER INFO
-      </div>
-
-      <div class="info">
-        <span>FIGHT NAME</span>
-        <strong>AISAR</strong>
-      </div>
-
-      <div class="info">
-        <span>GYM</span>
-        <strong>—</strong>
-      </div>
-
-      <div class="info">
-        <span>COUNTRY</span>
-        <strong>MALAYSIA 🇲🇾</strong>
-      </div>
-
-    </div>
-
-
-    <div class="buttons">
-
-      <a class="button" href="#">
-        🥊 FIGHTER PROFILE
-      </a>
-
-      <a class="button" href="https://wa.me/" target="_blank">
-        💬 WHATSAPP
-      </a>
-
-      <a class="button" href="#" target="_blank">
-        📸 INSTAGRAM
-      </a>
-
-      <a class="button" href="#" target="_blank">
-        🎵 TIKTOK
-      </a>
-
-      <a class="button save" href="#">
-        💾 SAVE FIGHTER CARD
-      </a>
-
-    </div>
-
-
-    <div class="footer">
-      DISCIPLINE • HONOUR • PERSEVERANCE
+    <div class="name-sub">
+      MUAY THAI • ALAM MELAYU
     </div>
 
   </div>
+
+  <div class="stats">
+
+    <div class="stat">
+      <strong id="record">0-0-0</strong>
+      <span>RECORD</span>
+    </div>
+
+    <div class="stat">
+      <strong>MUAY THAI</strong>
+      <span>STYLE</span>
+    </div>
+
+    <div class="stat">
+      <strong id="weight">—</strong>
+      <span>WEIGHT</span>
+    </div>
+
+  </div>
+
+  <div class="section">
+
+    <div class="section-title">
+      FIGHTER INFO
+    </div>
+
+    <div class="info">
+      <span>FIGHT NAME</span>
+      <strong id="infoName">AISAR</strong>
+    </div>
+
+    <div class="info">
+      <span>GYM</span>
+      <strong id="gym">—</strong>
+    </div>
+
+    <div class="info">
+      <span>COUNTRY</span>
+      <strong>MALAYSIA 🇲🇾</strong>
+    </div>
+
+  </div>
+
+  <div class="results">
+
+    <div class="section-title">
+      FIGHT RESULTS
+    </div>
+
+    <div id="fightResults">
+      <div class="loading">Loading fight results...</div>
+    </div>
+
+  </div>
+
+  <div class="buttons">
+
+    <a class="button" href="#">
+      🥊 FIGHTER PROFILE
+    </a>
+
+    <a class="button" href="https://wa.me/" target="_blank">
+      💬 WHATSAPP
+    </a>
+
+    <a class="button" href="#" target="_blank">
+      📸 INSTAGRAM
+    </a>
+
+    <a class="button" href="#" target="_blank">
+      🎵 TIKTOK
+    </a>
+
+    <a class="button save" href="#">
+      💾 SAVE FIGHTER CARD
+    </a>
+
+  </div>
+
+  <div class="footer">
+    DISCIPLINE • HONOUR • PERSEVERANCE
+  </div>
+
+</div>
+
+<script>
+
+const SUPABASE_URL = "https://dxfowvhdeyuuzqctazkn.supabase.co";
+
+/*
+  PASTE PUBLISHABLE KEY KAU DI BAWAH.
+  Jangan guna service_role / secret key.
+*/
+const SUPABASE_KEY = sb_publishable_G_vlwfXrYocCbBYaNTA3CQ_-sUxQaIf
+
+const supabaseClient = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_KEY
+);
+
+
+// Fighter ID yang kita masukkan dalam database tadi.
+// Kalau ID fighter kau bukan 1, tukar nombor ini.
+const FIGHTER_ID = 1;
+
+
+async function loadFighter() {
+
+  const { data: fighter, error: fighterError } =
+    await supabaseClient
+      .from("fighters")
+      .select("*")
+      .eq("id", FIGHTER_ID)
+      .single();
+
+  if (fighterError) {
+    console.log("Fighter error:", fighterError);
+    return;
+  }
+
+
+  // Papar data fighter
+  if (fighter.name) {
+    document.getElementById("fighterName").textContent =
+      fighter.name.toUpperCase();
+
+    document.getElementById("infoName").textContent =
+      fighter.name.toUpperCase();
+  }
+
+  if (fighter.gym) {
+    document.getElementById("gym").textContent = fighter.gym;
+  }
+
+  if (fighter.weight_class) {
+    document.getElementById("weight").textContent =
+      fighter.weight_class;
+  }
+
+
+  // Ambil fight yang APPROVED sahaja
+  const { data: fights, error: fightError } =
+    await supabaseClient
+      .from("fight_results")
+      .select("*")
+      .eq("fighter_id", FIGHTER_ID)
+      .eq("status", "approved")
+      .order("fight_date", { ascending: false });
+
+
+  if (fightError) {
+    console.log("Fight error:", fightError);
+    return;
+  }
+
+
+  let wins = 0;
+  let losses = 0;
+  let draws = 0;
+
+
+  fights.forEach(fight => {
+
+    if (fight.result === "win") wins++;
+    if (fight.result === "loss") losses++;
+    if (fight.result === "draw") draws++;
+
+  });
+
+
+  document.getElementById("record").textContent =
+    `${wins}-${losses}-${draws}`;
+
+
+  const resultsBox =
+    document.getElementById("fightResults");
+
+  if (!fights || fights.length === 0) {
+
+    resultsBox.innerHTML =
+      '<div class="loading">No approved fight results yet.</div>';
+
+    return;
+  }
+
+
+  resultsBox.innerHTML = "";
+
+
+  fights.forEach(fight => {
+
+    const div = document.createElement("div");
+
+    div.className = "fight";
+
+    const resultClass =
+      fight.result === "win"
+        ? "win"
+        : fight.result === "loss"
+        ? "loss"
+        : "draw";
+
+
+    div.innerHTML = `
+      <div class="fight-top">
+        <strong>${escapeHTML(fight.event || "Fight")}</strong>
+        <span class="result ${resultClass}">
+          ${escapeHTML(fight.result)}
+        </span>
+      </div>
+
+      <div class="fight-info">
+        Opponent: ${escapeHTML(fight.opponent || "—")}<br>
+        Date: ${escapeHTML(fight.fight_date || "—")}
+      </div>
+    `;
+
+    resultsBox.appendChild(div);
+
+  });
+
+}
+
+
+function escapeHTML(value) {
+
+  return String(value)
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
+
+}
+
+
+loadFighter();
+
+</script>
 
 </body>
 </html>
