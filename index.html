@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title>Aisar | Digital Card</title>
+  <title>Aisar | Fighter Card</title>
 
   <style>
     * {
@@ -16,66 +16,157 @@
 
     body {
       min-height: 100vh;
-      background: #111;
+      background:
+        radial-gradient(circle at top, #333 0%, #111 45%, #050505 100%);
+      color: white;
       display: flex;
       justify-content: center;
-      align-items: center;
-      padding: 20px;
-      color: white;
+      padding: 25px 15px;
     }
 
     .card {
       width: 100%;
-      max-width: 420px;
-      background: #1c1c1c;
-      border-radius: 25px;
-      padding: 35px 25px;
-      text-align: center;
-      box-shadow: 0 10px 40px rgba(0,0,0,0.5);
+      max-width: 430px;
+      background: #151515;
+      border: 1px solid #333;
+      border-radius: 28px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,.7);
     }
 
-    .profile {
-      width: 110px;
-      height: 110px;
+    .top {
+      padding: 30px 25px 20px;
+      text-align: center;
+    }
+
+    .tag {
+      font-size: 12px;
+      letter-spacing: 4px;
+      color: #aaa;
+      margin-bottom: 18px;
+    }
+
+    .fighter-photo {
+      width: 145px;
+      height: 145px;
+      margin: auto;
       border-radius: 50%;
-      background: #333;
-      margin: 0 auto 20px;
+      background: #292929;
+      border: 3px solid #555;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 45px;
+      font-size: 55px;
+      overflow: hidden;
+    }
+
+    .fighter-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
     h1 {
-      font-size: 28px;
+      margin-top: 20px;
+      font-size: 38px;
+      letter-spacing: 3px;
+    }
+
+    .name-sub {
+      color: #aaa;
+      margin-top: 6px;
+      letter-spacing: 2px;
+      font-size: 13px;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      padding: 10px 20px 25px;
+    }
+
+    .stat {
+      background: #222;
+      border-radius: 14px;
+      padding: 15px 5px;
+      text-align: center;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 17px;
+      margin-bottom: 6px;
+    }
+
+    .stat span {
+      font-size: 10px;
+      color: #888;
+      letter-spacing: 1px;
+    }
+
+    .section {
+      padding: 0 20px 20px;
+    }
+
+    .section-title {
+      color: #777;
+      font-size: 11px;
+      letter-spacing: 3px;
+      margin-bottom: 10px;
+    }
+
+    .info {
+      background: #222;
+      border-radius: 14px;
+      padding: 15px;
       margin-bottom: 8px;
     }
 
-    .subtitle {
-      color: #aaa;
-      margin-bottom: 30px;
+    .info span {
+      color: #888;
+      font-size: 11px;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .info strong {
+      font-size: 15px;
+    }
+
+    .buttons {
+      padding: 0 20px 25px;
     }
 
     .button {
       display: block;
       text-decoration: none;
+      text-align: center;
       color: white;
-      background: #292929;
+      background: #252525;
+      border: 1px solid #333;
       padding: 16px;
-      margin: 12px 0;
+      margin-top: 10px;
       border-radius: 14px;
-      font-size: 16px;
+      font-weight: bold;
     }
 
     .button:hover {
-      background: #3a3a3a;
+      background: #333;
     }
 
     .save {
       background: white;
       color: black;
-      font-weight: bold;
-      margin-top: 25px;
+      border: none;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 0 20px 25px;
+      color: #555;
+      font-size: 10px;
+      letter-spacing: 2px;
     }
   </style>
 </head>
@@ -84,35 +175,97 @@
 
   <div class="card">
 
-    <div class="profile">
-      👤
+    <div class="top">
+
+      <div class="tag">
+        FIGHTER PROFILE
+      </div>
+
+      <div class="fighter-photo">
+        🥊
+      </div>
+
+      <h1>AISAR</h1>
+
+      <div class="name-sub">
+        MUAY THAI • ALAM MELAYU
+      </div>
+
     </div>
 
-    <h1>AISAR</h1>
 
-    <p class="subtitle">
-      Digital Business Card
-    </p>
+    <div class="stats">
 
-    <a class="button" href="https://wa.me/" target="_blank">
-      💬 WhatsApp
-    </a>
+      <div class="stat">
+        <strong>0-0-0</strong>
+        <span>RECORD</span>
+      </div>
 
-    <a class="button" href="tel:" target="_blank">
-      📞 Call Me
-    </a>
+      <div class="stat">
+        <strong>MUAY THAI</strong>
+        <span>STYLE</span>
+      </div>
 
-    <a class="button" href="#" target="_blank">
-      📸 Instagram
-    </a>
+      <div class="stat">
+        <strong>—</strong>
+        <span>WEIGHT</span>
+      </div>
 
-    <a class="button" href="#" target="_blank">
-      🎵 TikTok
-    </a>
+    </div>
 
-    <a class="button save" href="#">
-      💾 Save Contact
-    </a>
+
+    <div class="section">
+
+      <div class="section-title">
+        FIGHTER INFO
+      </div>
+
+      <div class="info">
+        <span>FIGHT NAME</span>
+        <strong>AISAR</strong>
+      </div>
+
+      <div class="info">
+        <span>GYM</span>
+        <strong>—</strong>
+      </div>
+
+      <div class="info">
+        <span>COUNTRY</span>
+        <strong>MALAYSIA 🇲🇾</strong>
+      </div>
+
+    </div>
+
+
+    <div class="buttons">
+
+      <a class="button" href="#">
+        🥊 FIGHTER PROFILE
+      </a>
+
+      <a class="button" href="https://wa.me/" target="_blank">
+        💬 WHATSAPP
+      </a>
+
+      <a class="button" href="#" target="_blank">
+        📸 INSTAGRAM
+      </a>
+
+      <a class="button" href="#" target="_blank">
+        🎵 TIKTOK
+      </a>
+
+      <a class="button save" href="#">
+        💾 SAVE FIGHTER CARD
+      </a>
+
+    </div>
+
+
+    <div class="footer">
+      DISCIPLINE • HONOUR • PERSEVERANCE
+    </div>
 
   </div>
 
